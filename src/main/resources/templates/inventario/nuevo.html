@@ -17,10 +17,10 @@
 				<h1 class="text-center">Inventario - Nuevo</h1>
 				<div class="row d-flex justify-content-center">
 					<div class="col-md-6">
-						<form class="row g-2" action="#" method="post" novalidate>
+						<form th:action="@{/inventario/crear}" class="row g-2" method="post" novalidate th:object="${inventario}">
 							<div class="col-md-6 position-relative">
 								<label for="fechaVencimiento" class="form-label">Fecha de vencimiento</label>
-								<input type="date" class="form-control" id="fechaVencimiento" name="fechaVencimiento"
+								<input type="date" class="form-control "th:field="*{fechaVencimiento}"
 									required>
 							</div>
 							<div class="col-md-6 position-relative">
@@ -29,8 +29,10 @@
 									<span class="input-group-text">
 										<i class="fa-solid fa-box"></i>
 									</span>
-									<select class="form-select" required id="producto" name="producto">
-										<option value="">--Seleccione--</option>
+									<select class="form-select" th:field="*{producto}">
+										<option value="" selected hidden="hidden">--Seleccione--</option>
+										<option th:each="item:${productos}" th:value="${item.idProducto}"
+										th:text="${item.nombre}"></option>
 									</select>
 								</div>
 							</div>
@@ -39,7 +41,7 @@
 								<div class="input-group">
 									<span class="input-group-text">S/.</span>
 									<input type="number" class="form-control" step="0.01" placeholder="0.00"
-										id="costoIngreso" name="costoIngreso" required>
+										th:field="*{costoIngreso}" required>
 								</div>
 							</div>
 							<div class="col-md-6 position-relative">
@@ -48,8 +50,7 @@
 									<span class="input-group-text">
 										<i class="fa-brands fa-stack-overflow"></i>
 									</span>
-									<input type="number" class="form-control" placeholder="0" id="cantidad"
-										name="cantidad" required>
+									<input type="number" class="form-control" placeholder="0" th:field="*{cantidad}" required>
 								</div>
 							</div>
 							<div class="col-md-6 position-relative">
@@ -58,8 +59,7 @@
 									<span class="input-group-text">
 										<i class="fa-solid fa-barcode"></i>
 									</span>
-									<input type="text" class="form-control" placeholder="Ingrese un lote" id="lote"
-										name="lote" required>
+									<input type="text" class="form-control" placeholder="Ingrese un lote" th:field="*{lote}"required>
 								</div>
 							</div>
 							<div class="col-md-6 position-relative">
@@ -74,7 +74,7 @@
 							</div>
 							<div class="col-md-12 d-flex justify-content-between">
 								<!-- Botón Regresar -->
-								<a href="#" class="btn btn-outline-dark">
+								<a th:href="@{/inventario/listado}" class="btn btn-outline-dark">
 									<i class="fa-solid fa-reply"></i> Regresar
 								</a>
 								<!-- Botón Registrar -->

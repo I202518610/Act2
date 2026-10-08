@@ -15,7 +15,7 @@ import lombok.Setter;
 public class Categoria {
 	
 	@Id
-	@Column(name = "id_categoria")
+	@Column(name = "id")
 	private Integer idCategoria;
 	
 	@Column(name = "descripcion")

@@ -19,7 +19,7 @@
 						<h1 class="card-title">Listado de productos</h1>
 					</div>
 					<div class="col-md-2">
-						<a href="#" class="btn btn-success w-100"> <i class="fa-solid fa-plus"></i>
+						<a th:href="@{/inventario/nuevo}" class="btn btn-success w-100"> <i class="fa-solid fa-plus"></i>
 							Nuevo
 						</a>
 					</div>
@@ -42,18 +42,26 @@
 							</tr>
 						</thead>
 						<tbody class="table-secondary">
-							<tr>
-								<td></td>
-								<td></td>
-								<td></td>
-								<td></td>
-								<td></td>
-								<td></td>
-								<td></td>
-								<td></td>
-								<td></td>
+							<tr th:each="item:${inventarios}">
+								<td th:text="${item.numero}" class="text-center"></td>
+								<td th:text="${item.fechaVencimiento}"></td>
+								<td th:text="${item.producto.categoria.descripcion}" class="text-center"></td>
+								<td th:text="${item.producto.nombre}" class="text-center"></td>
+								<td th:text="${item.producto.stockRestante}" class="text-end"></td>
+								<td th:text="${#numbers.formatCurrency(item.costoIngreso)}" class="text-end"></td>
+								<td th:text="${item.cantidad}" class="text-end"></td>
+								<td th:text="${item.lote}" class="text-end"></td>
+								<td>
+								    <span class="badge"
+								          th:classappend="${item.codEstado == 'A' ? 'bg-success' :
+								                           item.codEstado == 'V' ? 'bg-danger' :
+								                           item.codEstado == 'T' ? 'bg-warning text-dark' : 'bg-secondary'}"
+								          th:text="${item.estados}">
+								    </span>
+								</td>
 								<td class="text-center align-middle">
-									<a href="#" class="btn btn-outline-primary" title="Editar">
+									<a th:href="@{/inventario/edicion/{id}(id=${item.numero})}" class="btn btn-outline-primary" title="Editar" aria-label="Editar"
+										role="button">
 										<i class="fa-regular fa-pen-to-square"></i>
 									</a>
 								</td>
@@ -64,6 +72,7 @@
 			</div>
 		</div>
 	</div>
+		<th:block th:utext="${alert}"></th:block>
 </body>
 
 </html>

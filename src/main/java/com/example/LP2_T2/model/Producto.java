@@ -39,11 +39,15 @@ public class Producto {
 	private Integer stockActual;
 	
 	@Column(name = "stock_maximo")
-	private BigDecimal stockMaximo;
+	private Integer stockMaximo;
 	
 	@ManyToOne
 	@JoinColumn(name="id_categoria")
 	private Categoria categoria;
+	
+	public Integer stockRestante() {
+		return stockMaximo - stockActual;
+	}
 	
 
 }
